@@ -14,6 +14,9 @@ class AIAlgorithm {
 
 public:
     GTree* irrevocableSearch(Problem* problem, RuleSet* ruleSet);
+    GTree* backtrackingSearch(Problem* problem, RuleSet* ruleSet);
+    GTree* breadthFirstSearch(Problem* problem, RuleSet* ruleSet);
+    GTree* depthFirstSearch(Problem* problem, RuleSet* ruleSet);
 };
 
 

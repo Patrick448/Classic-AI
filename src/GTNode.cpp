@@ -3,12 +3,16 @@
 #include <algorithm>
 #include<iostream>
 
+int GTNode::NEXT_NODE_ID = 0;
+
 GTNode::GTNode(State* state, GTNode* parent) {
     this->state = state;
     this->parent = parent;
     parent->children.push_back(this);
     //this->stateNumber = stateNumber;
     //this->selectedRule = ruleNumber;
+    this->nodeID = NEXT_NODE_ID;
+    NEXT_NODE_ID++;
 }
 
 GTNode::~GTNode() {
@@ -17,6 +21,8 @@ GTNode::~GTNode() {
 GTNode::GTNode(State* state) {
     this->state = state;
     this->parent = nullptr;
+    this->nodeID = NEXT_NODE_ID;
+    NEXT_NODE_ID++;
 }
 
 State* GTNode::getState() {
@@ -85,4 +91,25 @@ void GTNode::removeChild(GTNode *child) {
     {
         //cout << "filho nao encontrado" << endl;
     }
+}
+
+int GTNode::getNodeId() const {
+    return nodeID;
+}
+
+void GTNode::setNodeId(int nodeId) {
+    nodeID = nodeId;
+}
+
+string GTNode::dotString() {
+    string str = std::to_string(this->nodeID);
+    str+= "[label=\"" + this->state->toString() + "\"];\n";
+
+    for(int i = 0; i < this->children.size(); i++){
+        str += std::to_string(this->nodeID) + " -> " + std::to_string(this->children[i]->getNodeId());
+        str += "[label=\"" + std::to_string(this->children[i]->getState()->getGeneratingRule()) + "\"];\n";
+        str += this->children[i]->dotString();
+    }
+
+    return str;
 };

@@ -10,10 +10,10 @@ using namespace std;
 void auxPrintTreeOnePath(GTree* tree){
     GTNode* currentNode = tree->getRoot();
     while(currentNode->getChildren().size() > 0){
-        cout << currentNode->getState()->toString() << endl;
+        cout << currentNode->getState()->toStringWithRule() << endl;
         currentNode = currentNode->getChildren()[0];
     }
-    cout << currentNode->getState()->toString() << endl;
+    cout << currentNode->getState()->toStringWithRule() << endl;
 }
 
 int main(int argc, char** argv){
@@ -22,6 +22,8 @@ int main(int argc, char** argv){
     RuleSet ruleSet = RuleSet(15);
     GTree* tree = algorithm.irrevocableSearch(&problem, &ruleSet);
     auxPrintTreeOnePath(tree);
+
+    cout << tree->dotString() << endl;
     delete tree;
 }
 

@@ -39,6 +39,7 @@ public:
     bool canMove(int passenger1);
     bool canMove(int passenger1, int passenger2);
     bool operator==(const State &rhs) const;
+    std::string toStringWithRule();
     std::string toString();
 
 };

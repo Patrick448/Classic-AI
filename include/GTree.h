@@ -22,6 +22,7 @@ public:
     vector<int> getRules(); //retorna o vetor de sequencia de regra escolhido
     int getTotalStates(); // retorna o total de estados visitados até agora (nao confundir com passos)
     void setRoot(GTNode* node);
+    string dotString();
 private:
     GTNode* root; //ponteiro para a raíz
     int stateCounter = 0; //contador de estados

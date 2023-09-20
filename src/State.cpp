@@ -158,7 +158,7 @@ bool State::operator==(const State &rhs) const {
 
 }
 
-std::string State::toString() {
+std::string State::toStringWithRule() {
     std::string stateStr = "\t\t\t|\t\t\t\n\t\t\t"+ std::to_string(this->generatingRule) + "\n\t\t\t|\t\t\t\n" + "[";
     for(int i=0; i<7; i++){
         stateStr +=" "+ std::to_string(this->innerVector[i]) + " |";
@@ -168,6 +168,18 @@ std::string State::toString() {
     stateStr.pop_back();
 
     stateStr+= "]";
+    return stateStr;
+}
+
+std::string State::toString() {
+    std::string stateStr = "";
+    for(int i=0; i<7; i++){
+        stateStr +=" "+ std::to_string(this->innerVector[i]) + " |";
+    }
+
+    stateStr.pop_back();
+    stateStr.pop_back();
+
     return stateStr;
 }
 

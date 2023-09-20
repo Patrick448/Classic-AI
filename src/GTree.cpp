@@ -114,3 +114,11 @@ void GTree::setRoot(GTNode *node) {
     this->root = node;
 }
 
+string GTree::dotString() {
+
+    string str = "digraph G {\n";
+    str+= "node [margin=0.1 width=0.5 shape=record style=rounded]\nedge[fontcolor=blue]\n";
+    str+= this->root->dotString() + "\n}";
+    return str;
+}
+
