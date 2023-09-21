@@ -157,4 +157,5 @@ CMakeFiles/ClassicAI.dir/src/AIAlgorithm.cpp.o: \
  /usr/include/c++/11/bits/stl_heap.h /usr/include/c++/11/bits/stl_queue.h \
  /usr/include/c++/11/bits/uses_allocator.h \
  /home/patrick/Desktop/Projects/Classic-AI/include/Problem.h \
- /home/patrick/Desktop/Projects/Classic-AI/include/RuleSet.h
+ /home/patrick/Desktop/Projects/Classic-AI/include/RuleSet.h \
+ /usr/include/c++/11/stack /usr/include/c++/11/bits/stl_stack.h

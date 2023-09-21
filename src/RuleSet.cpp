@@ -155,6 +155,14 @@ bool RuleSet::isApplicable(State *state, int ruleNumber) {
     return false;
 }
 
+int RuleSet::getNumRules() const {
+    return numRules;
+}
+
+void RuleSet::setNumRules(int numRules) {
+    RuleSet::numRules = numRules;
+}
+
 
 
 

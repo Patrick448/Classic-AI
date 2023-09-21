@@ -4,8 +4,9 @@
 
 #include <iostream>
 #include "AIAlgorithm.h"
+#include <stack>
 
-GTree *AIAlgorithm::irrevocableSearch(Problem *problem, RuleSet* ruleSet) {
+GTree *AIAlgorithm::irrevocableSearch(Problem *problem, RuleSet* ruleSet, int maxDepth) {
     bool success = false;
     bool failure = false;
     GTree* searchTree = new GTree();
@@ -18,7 +19,7 @@ GTree *AIAlgorithm::irrevocableSearch(Problem *problem, RuleSet* ruleSet) {
         State* newState = nullptr;
         currentRule =0;
         //tries to apply rules until it succeeds or has tried all of them
-        while(newState == nullptr && currentRule <= 14){
+        while(newState == nullptr && currentRule < ruleSet->getNumRules()){
             newState = ruleSet->applyRule(currentNode->getState(), ruleSet->getRuleByIndex(currentRule));
             if(newState!= nullptr && searchTree->findOnPath(newState, currentNode)){
                 delete newState;
@@ -43,7 +44,7 @@ GTree *AIAlgorithm::irrevocableSearch(Problem *problem, RuleSet* ruleSet) {
     return searchTree;
 }
 
-GTree *AIAlgorithm::backtrackingSearch(Problem *problem, RuleSet* ruleSet) {
+GTree *AIAlgorithm::backtrackingSearch(Problem *problem, RuleSet* ruleSet, int maxDepth) {
     bool success = false;
     bool failure = false;
     GTree* searchTree = new GTree();
@@ -58,9 +59,8 @@ GTree *AIAlgorithm::backtrackingSearch(Problem *problem, RuleSet* ruleSet) {
         State *newState = nullptr;
         //currentRule =0;
 
-
         //tries to apply rules until it succeeds or has tried all of them
-        while (newState == nullptr && rulesStack.back() <= 14) {
+        while (newState == nullptr && rulesStack.back() < ruleSet->getNumRules()) {
             newState = ruleSet->applyRule(currentNode->getState(), ruleSet->getRuleByIndex(rulesStack.back()));
             if (newState != nullptr && searchTree->findOnPath(newState, currentNode)) {
                 delete newState;
@@ -70,12 +70,12 @@ GTree *AIAlgorithm::backtrackingSearch(Problem *problem, RuleSet* ruleSet) {
         }
 
         if (newState == nullptr) {
-            //failure = true;
             rulesStack.pop_back();
             currentNode = currentNode->getParent();
 
             if(currentNode== nullptr){
                 failure = true;
+                cout << "FAILURE" << endl;
             }
 
         } else {
@@ -85,8 +85,8 @@ GTree *AIAlgorithm::backtrackingSearch(Problem *problem, RuleSet* ruleSet) {
 
             if (*newState == *problem->getGoalState()) {
                 success = true;
-                cout << "----------------SUCCESS!----------------" << endl;
-                cout << newState->toStringWithRule() << endl;
+                cout << "SUCCESS" << endl;
+                //cout << newState->toStringWithRule() << endl;
             }
         }
 
@@ -96,10 +96,108 @@ GTree *AIAlgorithm::backtrackingSearch(Problem *problem, RuleSet* ruleSet) {
     return searchTree;
 }
 
-GTree *AIAlgorithm::breadthFirstSearch(Problem *problem, RuleSet *ruleSet) {
-    return nullptr;
+GTree *AIAlgorithm::breadthFirstSearch(Problem *problem, RuleSet *ruleSet, int maxDepth) {
+    bool success = false;
+    bool failure = false;
+    int depth = 1;
+    GTree* searchTree = new GTree();
+    State* currentState = new State();
+    GTNode* currentNode = new GTNode(currentState);
+    searchTree->setRoot(currentNode);
+
+    queue<GTNode*> open;
+    queue<GTNode*> closed;
+    open.push(currentNode);
+
+    while(!success && !failure) {
+        State *newState = nullptr;
+
+        //todo: ver se é possível implementar o maxDepth
+        // precisaria ter como saber cada vez que um nível é completado
+        if(open.empty()/* || depth == maxDepth*/){
+            failure = true;
+            cout << "FAILURE" << endl;
+        }else {
+            currentNode = open.front();
+
+            if (*currentNode->getState() == *problem->getGoalState()) {
+                success = true;
+                cout << "SUCCESS" << endl;
+            } else {
+                for (int i = 0; i < ruleSet->getNumRules(); i++) {
+                    newState = ruleSet->applyRule(currentNode->getState(), ruleSet->getRuleByIndex(i));
+                    if (newState == nullptr || searchTree->findOnPath(newState, currentNode)) {
+                        delete newState;
+                        newState = nullptr;
+                    } else {
+                        GTNode *newNode = new GTNode(newState, currentNode);
+                        open.push(newNode);
+                    }
+                }
+            }
+        }
+        open.pop();
+    }
+
+    this->searchTree = searchTree;
+    return searchTree;
 }
 
-GTree *AIAlgorithm::depthFirstSearch(Problem *problem, RuleSet *ruleSet) {
-    return nullptr;
+GTree *AIAlgorithm::depthFirstSearch(Problem *problem, RuleSet *ruleSet, int maxDepth) {
+    bool success = false;
+    bool failure = false;
+    int depth = 1;
+    GTree* searchTree = new GTree();
+    State* currentState = new State();
+    GTNode* currentNode = new GTNode(currentState);
+    searchTree->setRoot(currentNode);
+
+    stack<GTNode*> open;
+    queue<GTNode*> closed;
+    open.push(currentNode);
+
+    while(!success && !failure) {
+        State *newState = nullptr;
+
+        //todo: ver se é possível implementar o maxDepth
+        // precisaria ter como saber cada vez que um nível é completado
+        if(open.empty()/* || depth == maxDepth*/){
+            failure = true;
+            cout << "FAILURE" << endl;
+        }else {
+            currentNode = open.top();
+            open.pop();
+
+            if (*currentNode->getState() == *problem->getGoalState()) {
+                success = true;
+                cout << "SUCCESS" << endl;
+            } else {
+                for (int i = 0; i < ruleSet->getNumRules(); i++) {
+                    newState = ruleSet->applyRule(currentNode->getState(), ruleSet->getRuleByIndex(i));
+                    if (newState == nullptr || searchTree->findOnPath(newState, currentNode)) {
+                        delete newState;
+                        newState = nullptr;
+                    } else {
+                        GTNode *newNode = new GTNode(newState, currentNode);
+                        open.push(newNode);
+                    }
+                }
+            }
+        }
+    }
+
+    this->searchTree = searchTree;
+    return searchTree;
+
+}
+
+GTree *AIAlgorithm::successTree() {
+
+    for(int i=0; i < successNodes.size(); i++){
+        while(successNodes[i]->getParent() != nullptr){
+           GTNode* newParent = new GTNode(successNodes[i]->getParent()->getState());
+
+        }
+
+    }
 }

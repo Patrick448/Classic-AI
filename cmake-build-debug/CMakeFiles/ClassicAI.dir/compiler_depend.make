@@ -195,7 +195,9 @@ CMakeFiles/ClassicAI.dir/src/AIAlgorithm.cpp.o: /home/patrick/Desktop/Projects/C
   /usr/include/c++/11/bits/stl_queue.h \
   /usr/include/c++/11/bits/uses_allocator.h \
   /home/patrick/Desktop/Projects/Classic-AI/include/Problem.h \
-  /home/patrick/Desktop/Projects/Classic-AI/include/RuleSet.h
+  /home/patrick/Desktop/Projects/Classic-AI/include/RuleSet.h \
+  /usr/include/c++/11/stack \
+  /usr/include/c++/11/bits/stl_stack.h
 
 CMakeFiles/ClassicAI.dir/src/ControlStrategy.cpp.o: /home/patrick/Desktop/Projects/Classic-AI/src/ControlStrategy.cpp \
   /usr/include/stdc-predef.h \
@@ -1352,6 +1354,8 @@ CMakeFiles/ClassicAI.dir/src/main.cpp.o: /home/patrick/Desktop/Projects/Classic-
 
 /usr/include/c++/11/bits/uniform_int_dist.h:
 
+/usr/include/c++/11/stack:
+
 /usr/include/c++/11/bits/basic_string.tcc:
 
 /usr/include/c++/11/bits/locale_classes.tcc:
@@ -1607,6 +1611,8 @@ CMakeFiles/ClassicAI.dir/src/main.cpp.o: /home/patrick/Desktop/Projects/Classic-
 /usr/include/c++/11/bits/stl_function.h:
 
 /usr/include/c++/11/bits/basic_ios.h:
+
+/usr/include/c++/11/bits/stl_stack.h:
 
 /usr/include/stdlib.h:
 

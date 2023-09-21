@@ -15,8 +15,12 @@ class RuleSet {
 
         int* ruleStandardOrder;
         int numRules;
+public:
+    int getNumRules() const;
 
-    public:
+    void setNumRules(int numRules);
+
+public:
         RuleSet(int numRules);
         ~RuleSet();
         State* applyRule(State* state, int ruleNumber);

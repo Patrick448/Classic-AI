@@ -72,6 +72,7 @@ void GTree::clear(GTNode *node) {
 
 bool GTree::findOnPath(State *state, GTNode *node) {
 
+
     GTNode* currentNode = node;
     while (currentNode != nullptr) //unico nó que tem como pai null é a raiz
     {

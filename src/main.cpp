@@ -20,7 +20,7 @@ int main(int argc, char** argv){
     AIAlgorithm algorithm = AIAlgorithm();
     Problem problem = Problem();
     RuleSet ruleSet = RuleSet(15);
-    GTree* tree = algorithm.irrevocableSearch(&problem, &ruleSet);
+    GTree* tree = algorithm.depthFirstSearch(&problem, &ruleSet, 50);
     auxPrintTreeOnePath(tree);
 
     cout << tree->dotString() << endl;
