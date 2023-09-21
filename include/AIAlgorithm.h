@@ -7,7 +7,7 @@
 
 
 #include "GTree.h"
-#include "Problem.h"
+#include "JealousHusbandsProblem.h"
 #include "RuleSet.h"
 
 class AIAlgorithm {

@@ -36,7 +36,7 @@ void auxPrintTreeOnePath(GTree* tree){
 
 int main(int argc, char** argv){
     AIAlgorithm algorithm = AIAlgorithm();
-    Problem problem = Problem();
+    JealousHusbandsProblem problem = JealousHusbandsProblem();
     RuleSet ruleSet = RuleSet(15);
     GTree* tree = algorithm.backtrackingSearch(&problem, &ruleSet, 50);
     auxPrintTreeOnePath(tree);

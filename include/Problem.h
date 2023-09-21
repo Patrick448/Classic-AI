@@ -2,7 +2,7 @@
 // Created by patrick on 18/09/23.
 //
 
-#ifndef CLASSICAI_PROBLEM_H
+#ifndef CLASSICAI_PROBLEM
 #define CLASSICAI_PROBLEM_H
 
 
@@ -14,13 +14,11 @@ class Problem {
     State* goalState;
 
     public:
-    Problem();
-    ~Problem();
-    State* getInitialState();
-    State* getGoalState();
-    void setInitialState(State* initialState);
-    void setGoalState(State* goalState);
+    virtual State* getInitialState()= 0;
+    virtual State* getGoalState()=0;
+    virtual void setInitialState(State* initialState)=0;
+    virtual void setGoalState(State* goalState)=0;
 };
 
 
-#endif //CLASSICAI_PROBLEM_H
+#endif //CLASSICAI_JEALOUSHUSBANDSPROBLEM_H
