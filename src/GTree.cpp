@@ -123,3 +123,10 @@ string GTree::dotString() {
     return str;
 }
 
+void GTree::prune(vector<GTNode *> keepList) {
+    for(int i=0; i<keepList.size(); i++){
+        GTNode* node = keepList.at(i);
+        node->pruneBackwards(node);
+    }
+}
+

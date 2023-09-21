@@ -23,6 +23,7 @@ public:
     int getTotalStates(); // retorna o total de estados visitados até agora (nao confundir com passos)
     void setRoot(GTNode* node);
     string dotString();
+    void prune(vector<GTNode*> keepList);
 private:
     GTNode* root; //ponteiro para a raíz
     int stateCounter = 0; //contador de estados

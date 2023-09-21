@@ -36,6 +36,8 @@ GTree *AIAlgorithm::irrevocableSearch(Problem *problem, RuleSet* ruleSet, int ma
 
             if (*newState == *problem->getGoalState()) {
                 success = true;
+                this->successNodes.push_back(currentNode);
+
             }
         }
 
@@ -86,6 +88,8 @@ GTree *AIAlgorithm::backtrackingSearch(Problem *problem, RuleSet* ruleSet, int m
             if (*newState == *problem->getGoalState()) {
                 success = true;
                 cout << "SUCCESS" << endl;
+                this->successNodes.push_back(currentNode);
+
                 //cout << newState->toStringWithRule() << endl;
             }
         }
@@ -123,6 +127,8 @@ GTree *AIAlgorithm::breadthFirstSearch(Problem *problem, RuleSet *ruleSet, int m
             if (*currentNode->getState() == *problem->getGoalState()) {
                 success = true;
                 cout << "SUCCESS" << endl;
+                this->successNodes.push_back(currentNode);
+
             } else {
                 for (int i = 0; i < ruleSet->getNumRules(); i++) {
                     newState = ruleSet->applyRule(currentNode->getState(), ruleSet->getRuleByIndex(i));
@@ -171,6 +177,7 @@ GTree *AIAlgorithm::depthFirstSearch(Problem *problem, RuleSet *ruleSet, int max
             if (*currentNode->getState() == *problem->getGoalState()) {
                 success = true;
                 cout << "SUCCESS" << endl;
+                this->successNodes.push_back(currentNode);
             } else {
                 for (int i = 0; i < ruleSet->getNumRules(); i++) {
                     newState = ruleSet->applyRule(currentNode->getState(), ruleSet->getRuleByIndex(i));
@@ -191,13 +198,7 @@ GTree *AIAlgorithm::depthFirstSearch(Problem *problem, RuleSet *ruleSet, int max
 
 }
 
-GTree *AIAlgorithm::successTree() {
+void AIAlgorithm::pruneFailurePaths() {
 
-    for(int i=0; i < successNodes.size(); i++){
-        while(successNodes[i]->getParent() != nullptr){
-           GTNode* newParent = new GTNode(successNodes[i]->getParent()->getState());
-
-        }
-
-    }
+    this->searchTree->prune(successNodes);
 }

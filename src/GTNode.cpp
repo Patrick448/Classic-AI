@@ -112,4 +112,19 @@ string GTNode::dotString() {
     }
 
     return str;
+}
+
+void GTNode::pruneBackwards(GTNode *keepNode) {
+
+    for(int i = 0; i < this->children.size(); i++){
+        if(this->children[i] != keepNode){
+            this->removeChild(this->children[i]);
+            delete this->children[i];
+        }
+    }
+
+    if(this->parent != nullptr){
+        this->parent->pruneBackwards(this);
+    }
+
 };

@@ -21,7 +21,7 @@ public:
     GTree* backtrackingSearch(Problem* problem, RuleSet* ruleSet, int maxDepth);
     GTree* breadthFirstSearch(Problem* problem, RuleSet* ruleSet, int maxDepth);
     GTree* depthFirstSearch(Problem* problem, RuleSet* ruleSet, int maxDepth);
-    GTree* successTree();
+    void pruneFailurePaths();
 };
 
 

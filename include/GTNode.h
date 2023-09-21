@@ -28,6 +28,7 @@ public:
     int getNodeId() const;
     void setNodeId(int nodeId);
     string dotString();
+    void pruneBackwards(GTNode* keepNode);
 
 protected:
     static int NEXT_NODE_ID;
