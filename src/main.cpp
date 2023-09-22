@@ -35,7 +35,46 @@ void auxPrintTreeOnePath(GTree* tree){
     cout << currentNode->getState()->toString() << endl;
 }
 
+void printMatrix2(int mat[3][3])
+{
+    // Loop to print the matrix
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j <3; j++)
+            std::cout << mat[i][j] << " ";
+        std::cout << std::endl;
+    }
+}
+
+void test(){
+    int cube[3][3] = {{1,2,3},{4,5,6},{7,8,9}};
+
+    for (int i = 0; i < 3; i++) {
+        for(int j=i; j<3; j++){
+            int aux = cube[i][j];
+            cube[i][j] = cube[j][i];
+            cube[j][i] = aux;
+        }
+    }
+
+    for(int i=0; i<1; i++){
+        for(int j=0; j<3; j++){
+            int aux = cube[i][j];
+            cube[i][j] = cube[2-i][j];
+            cube[2-i][j] = aux;
+        }
+    }
+
+
+
+
+
+    printMatrix2(cube);
+}
+
+
 int main(int argc, char** argv){
+    test();
+    return 0;
     AIAlgorithm algorithm = AIAlgorithm();
 
     JealousHusbandsProblem problem = JealousHusbandsProblem();
