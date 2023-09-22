@@ -8,6 +8,7 @@
 
 #include "State.h"
 #include "Problem.h"
+#include "JHPState.h"
 
 //this class represents the problem to be solved by the algorithm
 class JealousHusbandsProblem : public Problem{
@@ -21,6 +22,7 @@ class JealousHusbandsProblem : public Problem{
     State* getGoalState() override;
     void setInitialState(State* initialState) override;
     void setGoalState(State* goalState) override;
+    State * createNewState() override;
 };
 
 

@@ -23,7 +23,6 @@ public:
     void makeChild(GTNode* child); //após um no ser criado, essa funcao adiciona um ponteiro para ele no vetor de filhos do no atual
     void printState(); //printa o estado, objeto scenario (key)
     bool isLeaf(); //retorna se é folha (vetor de filhos vazio)
-    bool isEqual(State state); //dada um scenario, confere se é o mesmo do no atual
     void removeChild(GTNode* child); //se child esta no vetor de filhos, remove-o de lá
     int getNodeId() const;
     void setNodeId(int nodeId);

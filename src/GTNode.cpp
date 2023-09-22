@@ -70,15 +70,6 @@ bool GTNode::isLeaf() {
         return false;
 }
 
-bool GTNode::isEqual(State state) {
-   /* if (this->state == state)
-        return true;
-    else
-        return false;*/
-}
-
-
-
 
 void GTNode::removeChild(GTNode *child) {
     vector<GTNode*>::iterator it;

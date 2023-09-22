@@ -5,6 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include "AIAlgorithm.h"
+#include "JHPRuleSet.h"
 
 using namespace std;
 
@@ -28,18 +29,19 @@ void outputToFile(string path, string text, bool append)
 void auxPrintTreeOnePath(GTree* tree){
     GTNode* currentNode = tree->getRoot();
     while(currentNode->getChildren().size() > 0){
-        cout << currentNode->getState()->toStringWithRule() << endl;
+        cout << currentNode->getState()->toString() << endl;
         currentNode = currentNode->getChildren()[0];
     }
-    cout << currentNode->getState()->toStringWithRule() << endl;
+    cout << currentNode->getState()->toString() << endl;
 }
 
 int main(int argc, char** argv){
     AIAlgorithm algorithm = AIAlgorithm();
+
     JealousHusbandsProblem problem = JealousHusbandsProblem();
-    RuleSet ruleSet = RuleSet(15);
-    GTree* tree = algorithm.backtrackingSearch(&problem, &ruleSet, 50);
-    auxPrintTreeOnePath(tree);
+    JHPRuleSet ruleSet = JHPRuleSet(15);
+
+    GTree* tree = algorithm.breadthFirstSearch(&problem, &ruleSet, 50);
     //algorithm.pruneFailurePaths();
     outputToFile("../graph.dot", tree->dotString(), false);
 

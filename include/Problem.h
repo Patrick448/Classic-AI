@@ -10,14 +10,14 @@
 
 //this class represents the problem to be solved by the algorithm
 class Problem {
-    State* initialState;
-    State* goalState;
 
+private:
     public:
     virtual State* getInitialState()= 0;
     virtual State* getGoalState()=0;
     virtual void setInitialState(State* initialState)=0;
     virtual void setGoalState(State* goalState)=0;
+    virtual State* createNewState()=0;
 };
 
 

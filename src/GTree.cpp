@@ -20,16 +20,16 @@ GTree::~GTree() {
     this->clear(this->root);
 }
 
-GTNode* GTree::Insert(State state, GTNode *parent, int selectedRule) {
+//GTNode* GTree::Insert(State state, GTNode *parent, int selectedRule) {
    /* this->stateCounter++;
     GTNode* node = new GTNode(state, parent, this->stateCounter, selectedRule);
     if (parent != nullptr)
         parent->makeChild(node);
     this->updateQueue(node);
     return node;*/
-}
+//}
 
-bool GTree::Search(State state) {
+bool GTree::find(State *state) {
     int flag = 0;
     this->auxSearch(state, this->root, flag);
     if (flag == 0)
@@ -38,13 +38,13 @@ bool GTree::Search(State state) {
         return true;
 }
 
-void GTree::auxSearch(State sc, GTNode *node, int &flag) {
-    if (node->isEqual(sc))
+void GTree::auxSearch(State *state, GTNode *node, int &flag) {
+    if (*node->getState() == *state)
         flag = 1;
     else
         if (!node->isLeaf())
             for(int i = 0; i < node->getChildren().size(); i++)
-                this->auxSearch(sc, node->getChildren().at(i), flag);
+                this->auxSearch(state, node->getChildren().at(i), flag);
 }
 
 GTNode* GTree::getRoot() {

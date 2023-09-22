@@ -3,10 +3,11 @@
 //
 
 #include "JealousHusbandsProblem.h"
+#include "JHPState.h"
 
 JealousHusbandsProblem::JealousHusbandsProblem()  {
-    this->initialState = new State();
-    this->goalState = new State(0,0,0,0,0,0,0);
+    this->initialState = new JHPState();
+    this->goalState = new JHPState(0,0,0,0,0,0,0);
 }
 
 JealousHusbandsProblem::~JealousHusbandsProblem() {
@@ -28,4 +29,8 @@ void JealousHusbandsProblem::setInitialState(State *initialState) {
 
 void JealousHusbandsProblem::setGoalState(State *goalState) {
     this->goalState = goalState;
+}
+
+State *JealousHusbandsProblem::createNewState() {
+    return new JHPState();
 }

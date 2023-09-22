@@ -10,7 +10,7 @@ GTree *AIAlgorithm::irrevocableSearch(Problem *problem, RuleSet* ruleSet, int ma
     bool success = false;
     bool failure = false;
     GTree* searchTree = new GTree();
-    State* currentState = new State();
+    State* currentState = problem->createNewState();
     GTNode* currentNode = new GTNode(currentState);
     searchTree->setRoot(currentNode);
     int currentRule;
@@ -50,7 +50,7 @@ GTree *AIAlgorithm::backtrackingSearch(Problem *problem, RuleSet* ruleSet, int m
     bool success = false;
     bool failure = false;
     GTree* searchTree = new GTree();
-    State* currentState = new State();
+    State* currentState = problem->createNewState();
     GTNode* currentNode = new GTNode(currentState);
     searchTree->setRoot(currentNode);
     int currentRule;
@@ -105,7 +105,7 @@ GTree *AIAlgorithm::breadthFirstSearch(Problem *problem, RuleSet *ruleSet, int m
     bool failure = false;
     int depth = 1;
     GTree* searchTree = new GTree();
-    State* currentState = new State();
+    State* currentState = problem->createNewState();
     GTNode* currentNode = new GTNode(currentState);
     searchTree->setRoot(currentNode);
 
@@ -132,7 +132,7 @@ GTree *AIAlgorithm::breadthFirstSearch(Problem *problem, RuleSet *ruleSet, int m
             } else {
                 for (int i = 0; i < ruleSet->getNumRules(); i++) {
                     newState = ruleSet->applyRule(currentNode->getState(), ruleSet->getRuleByIndex(i));
-                    if (newState == nullptr || searchTree->findOnPath(newState, currentNode)) {
+                    if (newState == nullptr || searchTree->find(newState)) {
                         delete newState;
                         newState = nullptr;
                     } else {
@@ -154,7 +154,7 @@ GTree *AIAlgorithm::depthFirstSearch(Problem *problem, RuleSet *ruleSet, int max
     bool failure = false;
     int depth = 1;
     GTree* searchTree = new GTree();
-    State* currentState = new State();
+    State* currentState = problem->createNewState();
     GTNode* currentNode = new GTNode(currentState);
     searchTree->setRoot(currentNode);
 
@@ -197,6 +197,8 @@ GTree *AIAlgorithm::depthFirstSearch(Problem *problem, RuleSet *ruleSet, int max
     return searchTree;
 
 }
+
+
 
 void AIAlgorithm::pruneFailurePaths() {
 

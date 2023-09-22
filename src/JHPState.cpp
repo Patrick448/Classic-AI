@@ -2,11 +2,11 @@
 // Created by patrick on 18/09/23.
 //
 
-#include "State.h"
-int State::NEXT_ID = 0;
+#include "JHPState.h"
+int JHPState::NEXT_ID = 0;
 
 // constructor, defaults to the initial state
-State::State() {
+JHPState::JHPState() {
 
     this->innerVector[0] = 1;
     this->innerVector[1] = 1;
@@ -20,19 +20,20 @@ State::State() {
 
 }
 
-void State::copyVector(State *state) {
+void JHPState::copyVector(State *state) {
+    JHPState* jhpState = dynamic_cast<JHPState*>(state);
 
     for(int i=0; i<7; i++){
-        this->innerVector[i] = state->getInnerVector()[i];
+        this->innerVector[i] = jhpState->getInnerVector()[i];
     }
 }
 
 
-int *State::getInnerVector() {
+int *JHPState::getInnerVector() {
     return this->innerVector;
 }
 
-State::State(int h1, int h2, int h3, int m1, int m2, int m3, int b) {
+JHPState::JHPState(int h1, int h2, int h3, int m1, int m2, int m3, int b) {
     //hotel side
     this->innerVector[0] = h1;
     this->innerVector[1] = h2;
@@ -41,11 +42,9 @@ State::State(int h1, int h2, int h3, int m1, int m2, int m3, int b) {
     this->innerVector[4] = m2;
     this->innerVector[5] = m3;
     this->innerVector[6] = b;
-
-
 }
 
-void State::auxMove(int passenger) {
+void JHPState::auxMove(int passenger) {
 
     if(this->innerVector[passenger]==0){
         this->innerVector[passenger] =1;
@@ -54,18 +53,18 @@ void State::auxMove(int passenger) {
     }
 }
 
-void State::move(int passenger) {
+void JHPState::move(int passenger) {
     auxMove(passenger);
     auxMove(6);
 }
 
-void State::move(int passenger1, int passenger2) {
+void JHPState::move(int passenger1, int passenger2) {
     auxMove(passenger1);
     auxMove(passenger2);
     auxMove(6);
 }
 
-bool State::isValid() {
+bool JHPState::isValid() {
     bool valid = true;
     bool womanAlone=false;
     bool withOtherMen=false;
@@ -92,8 +91,8 @@ bool State::isValid() {
     return valid;
 }
 
-State *State::tryGenerateStateMoving(int passenger1, int passenger2) {
-    State* newState = new State();
+JHPState *JHPState::tryGenerateStateMoving(int passenger1, int passenger2) {
+    JHPState* newState = new JHPState();
     newState->copyVector(this);
 
     if(!this->canMove(passenger1, passenger2)){
@@ -112,8 +111,8 @@ State *State::tryGenerateStateMoving(int passenger1, int passenger2) {
 }
 
 
-State *State::tryGenerateStateMoving(int passenger) {
-    State* newState = new State();
+JHPState *JHPState::tryGenerateStateMoving(int passenger) {
+    JHPState* newState = new JHPState();
     newState->copyVector(this);
 
     if(!this->canMove(passenger)){
@@ -132,7 +131,7 @@ State *State::tryGenerateStateMoving(int passenger) {
 }
 
 
-bool State::canMove(int passenger1) {
+bool JHPState::canMove(int passenger1) {
     bool possibleTraversal = false;
     int* vec = this->getInnerVector();
 
@@ -143,22 +142,22 @@ bool State::canMove(int passenger1) {
     return possibleTraversal;
 }
 
-bool State::canMove(int passenger1, int passenger2) {
+bool JHPState::canMove(int passenger1, int passenger2) {
     return canMove(passenger1) && canMove(passenger2);
 }
 
-bool State::operator==(const State &rhs) const {
+bool JHPState::operator==(const State &rhs) const {
+    const JHPState& rhsJHP = dynamic_cast<const JHPState&>(rhs);
 
     for(int i=0; i<7; i++){
-        if(this->innerVector[i] != rhs.innerVector[i]){
+        if(this->innerVector[i] != rhsJHP.innerVector[i]){
             return false;
         }
     }
     return true;
-
 }
 
-std::string State::toStringWithRule() {
+std::string JHPState::toStringWithRule() {
     std::string stateStr = "\t\t\t|\t\t\t\n\t\t\t"+ std::to_string(this->generatingRule) + "\n\t\t\t|\t\t\t\n" + "[";
     for(int i=0; i<7; i++){
         stateStr +=" "+ std::to_string(this->innerVector[i]) + " |";
@@ -171,7 +170,7 @@ std::string State::toStringWithRule() {
     return stateStr;
 }
 
-std::string State::toString() {
+std::string JHPState::toString() {
     std::string stateStr = "";
     for(int i=0; i<7; i++){
         stateStr +=" "+ std::to_string(this->innerVector[i]) + " |";
@@ -183,12 +182,12 @@ std::string State::toString() {
     return stateStr;
 }
 
-int State::getGeneratingRule() const {
+int JHPState::getGeneratingRule() const {
     return generatingRule;
 }
 
-void State::setGeneratingRule(int generatingRule) {
-    State::generatingRule = generatingRule;
+void JHPState::setGeneratingRule(int generatingRule) {
+    this->generatingRule = generatingRule;
 }
 
 
